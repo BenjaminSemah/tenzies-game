@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import { nanoid } from 'nanoid';
+import Die from './components/Die';
+import './App.css'
 
-function App() {
+export default function App() {
+  const allNewDice = () => {
+    const allDice = [];
+
+    for (let i = 0; i < 10; i++) {
+      allDice.push(
+        {
+          id: nanoid(),
+          value: Math.ceil(Math.random() * 6),
+          isHeld: false
+        }
+      )
+    }
+    return allDice;
+  }
+
+  const [dice, setDice] = useState(allNewDice())
+
+  const diceElements = dice.map((die) => (
+    <Die
+      key={die.id}
+      isHeld={die.isHeld}
+      className='single--die'
+      value={die.value}
+    />
+  ))
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <div className='dark--background'>
+        <div className='white--square'>
+          <div className='dice--container'>
+            { diceElements }
+          </div>
+        </div>
+      </div>
+    </>
+  )
 }
-
-export default App;
