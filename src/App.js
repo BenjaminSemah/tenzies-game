@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { nanoid } from 'nanoid';
 import Die from './components/Die';
 import './App.css'
@@ -20,21 +20,44 @@ export default function App() {
   }
 
   const rollDice = () => {
-    setDice(allNewDice())
+    setDice(prevDice => (
+      prevDice.map(die => (
+        die.isHeld === false ?
+        { ...die, value: Math.ceil(Math.random() * 6)} :
+        die
+      ))
+    ))
   }
 
   const holdDice = (id) => {
     setDice(prevDice => (
       prevDice.map(die => (
         die.id === id ?
-          {...die, isHeld: !die.isHeld} :
-          die
+        { ...die, isHeld: !die.isHeld} :
+        die
       ))
     ))
   }
 
-  const [dice, setDice] = useState(allNewDice())
+  const setNewGame = () => {
+    setDice(allNewDice())
+  }
 
+  const [dice, setDice] = useState(allNewDice())
+  const [tenzies, setTenzies] = useState(false)
+
+  useEffect(() => {
+    const firstValue = dice[0].value
+    if (
+      dice.every(die => die.isHeld === true) &&
+      dice.every(die => die.value === firstValue)
+      ) {
+      setTenzies(true)
+      console.log("Drop Confetti")
+    }
+  }, [dice])
+
+  console.log(tenzies)
   const diceElements = dice.map((die) => (
     <Die
       key={die.id}
@@ -54,9 +77,9 @@ export default function App() {
           </div>
           <button
             type='button'
-            onClick={rollDice}
+            onClick={tenzies === true ? setNewGame : rollDice}
           >
-            Roll
+            {tenzies === true ? "New Game" : "Roll"}
           </button>
         </div>
       </div>
