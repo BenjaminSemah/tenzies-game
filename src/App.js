@@ -19,6 +19,20 @@ export default function App() {
     return allDice;
   }
 
+  const rollDice = () => {
+    setDice(allNewDice())
+  }
+
+  const holdDice = (id) => {
+    setDice(prevDice => (
+      prevDice.map(die => (
+        die.id === id ?
+          {...die, isHeld: !die.isHeld} :
+          die
+      ))
+    ))
+  }
+
   const [dice, setDice] = useState(allNewDice())
 
   const diceElements = dice.map((die) => (
@@ -27,6 +41,7 @@ export default function App() {
       isHeld={die.isHeld}
       className='single--die'
       value={die.value}
+      handleHoldDie={() => holdDice(die.id)}
     />
   ))
 
@@ -37,6 +52,12 @@ export default function App() {
           <div className='dice--container'>
             { diceElements }
           </div>
+          <button
+            type='button'
+            onClick={rollDice}
+          >
+            Roll
+          </button>
         </div>
       </div>
     </>
