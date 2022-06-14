@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Die(props) {
   const diceStyles = {
-    backgroundColor: props.isHeld ? 'green' : 'white'
+    backgroundColor: props.isHeld ? '#59E391' : 'white'
   }
 
   return (

@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
 body {
   margin: 0;
   padding: 0;
+  font-family: 'Karla', sans-serif;
 }
 
 .dark--background {
@@ -24,7 +28,6 @@ body {
 .dice--container {
   display: grid;
   grid-template: auto auto / repeat(5, 1fr);
-  gap: 20px;
 }
 
 .single--die {
@@ -38,7 +41,45 @@ body {
   margin: 0;
   padding: 0;
   cursor: pointer;
+  font-size: 21px;
+  font-weight: 700;
   box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
   -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+}
+
+.game--btn {
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  background-color: #5035FF;
+  border: none;
+  border-radius: 8px;
+  width: 120px;
+  height: 36px;
+  align-self: center;
+  justify-self: center;
+  cursor: pointer;
+}
+
+.tenzies--text {
+  justify-self: center;
+  align-self: center;
+}
+
+.tenzies--title {
+  text-align: center;
+  font-size: 25px;
+  font-weight: 700;
+  color: #2B283A;
+  margin: 0;
+}
+
+.tenzies--desc {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #4A4E74;
+  margin: 0;
+  padding-top: 5px;
 }
