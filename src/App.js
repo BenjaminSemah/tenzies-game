@@ -47,6 +47,21 @@ export default function App() {
 
   const [dice, setDice] = useState(allNewDice())
   const [tenzies, setTenzies] = useState(false)
+  const [rollsCount, setRollsCount] = useState(0)
+
+  const countNumberOfRolls = () => {
+    setRollsCount(prevCount => prevCount + 1)
+  }
+
+  const handleBtnClick = () => {
+    // tenzies === true ? setNewGame() : rollDice()
+    if (tenzies === true) {
+      setNewGame()
+    } else {
+      rollDice()
+    }
+    countNumberOfRolls()
+  }
 
   useEffect(() => {
     const firstValue = dice[0].value
@@ -55,11 +70,9 @@ export default function App() {
       dice.every(die => die.value === firstValue)
       ) {
       setTenzies(true)
-      console.log("Drop Confetti")
     }
   }, [dice])
 
-  console.log(tenzies)
   const diceElements = dice.map((die) => (
     <Die
       key={die.id}
@@ -89,12 +102,16 @@ export default function App() {
           <button
             className='game--btn'
             type='button'
-            onClick={tenzies === true ? setNewGame : rollDice}
+            onClick={handleBtnClick}
           >
             {tenzies === false ? "Roll" : "New Game"}
           </button>
         </div>
       </div>
+      <p className='rolls--tracker'>
+        Number of Rolls:
+        <span className='rolls--num'> {rollsCount} </span>
+      </p>
     </>
   )
 }
