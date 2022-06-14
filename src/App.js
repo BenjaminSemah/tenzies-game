@@ -54,13 +54,13 @@ export default function App() {
   }
 
   const handleBtnClick = () => {
-    // tenzies === true ? setNewGame() : rollDice()
     if (tenzies === true) {
       setNewGame()
+      setRollsCount(0)
     } else {
       rollDice()
+      countNumberOfRolls()
     }
-    countNumberOfRolls()
   }
 
   useEffect(() => {
