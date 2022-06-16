@@ -48,6 +48,7 @@ export default function App() {
   const [dice, setDice] = useState(allNewDice())
   const [tenzies, setTenzies] = useState(false)
   const [rollsCount, setRollsCount] = useState(0)
+  const [rollsRecord, setRollsRecord] = useState(0)
 
   const countNumberOfRolls = () => {
     setRollsCount(prevCount => prevCount + 1)
@@ -62,6 +63,16 @@ export default function App() {
       countNumberOfRolls()
     }
   }
+
+  useEffect(() => {
+    const rollsRecordNum = localStorage.getItem('rollsRecord')
+    if (tenzies && rollsCount < rollsRecordNum) {
+      localStorage.setItem('rollsRecord', rollsCount)
+    } else {
+      const rollsRecordNum = localStorage.getItem('rollsRecord')
+      setRollsRecord(rollsRecordNum)
+    }
+  }, [tenzies, rollsCount])
 
   useEffect(() => {
     const firstValue = dice[0].value
@@ -86,7 +97,12 @@ export default function App() {
   return (
     <>
       <div className='dark--background'>
-        {tenzies && <Confetti />}
+        {
+          tenzies &&
+          <Confetti
+            className='confetti'
+          />
+        }
         <div className='white--square'>
           <div className='tenzies--text'>
             <h1 className='tenzies--title'>Tenzies</h1>
@@ -108,10 +124,15 @@ export default function App() {
           </button>
         </div>
       </div>
-      <p className='rolls--tracker'>
-        Number of Rolls:
-        <span className='rolls--num'> {rollsCount} </span>
-      </p>
+      <div className='rolls--stat'>
+        <p className='rolls--tracker'>
+          Number of Rolls:
+          <span className='rolls--num'> {rollsCount} </span>
+        </p>
+        <p className='rolls--record'>RECORD:
+          <span className='rolls--rec'> {rollsRecord} </span>
+        </p>
+      </div>
     </>
   )
 }

@@ -14,7 +14,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 50px auto;
+  margin: 45px auto 20px auto;
 }
 
 .white--square {
@@ -89,11 +89,26 @@ body {
   color: #2B283A;
 }
 
-.rolls--num {
+.rolls--num,
+.rolls--rec {
   height: 36px;
   width: 100px;
-  font-size: 21px;
+  font-size: 25px;
   font-weight: 700;
 }
 
+.confetti {
+  width: 100%;
+  height: 100vh;
+  justify-self: center;
+}
 
+.rolls--stat {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+  width: 360px;
+  color: #2B283A;
+}
