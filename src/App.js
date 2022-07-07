@@ -45,34 +45,36 @@ export default function App() {
     setTenzies(false)
   }
 
+  let recordStore = parseInt(localStorage.getItem("rollsRecord"))
+
   const [dice, setDice] = useState(allNewDice())
   const [tenzies, setTenzies] = useState(false)
   const [rollsCount, setRollsCount] = useState(0)
-  const [rollsRecord, setRollsRecord] = useState(0)
+  const [rollsRecord, setRollsRecord] = useState(recordStore || 0)
 
-  const countNumberOfRolls = () => {
+  const increaseRollsCount = () => {
     setRollsCount(prevCount => prevCount + 1)
   }
 
   const handleBtnClick = () => {
-    if (tenzies === true) {
+    if (tenzies) {
       setNewGame()
       setRollsCount(0)
     } else {
       rollDice()
-      countNumberOfRolls()
+      increaseRollsCount()
     }
   }
 
   useEffect(() => {
-    const rollsRecordNum = localStorage.getItem('rollsRecord')
-    if (tenzies && rollsCount < rollsRecordNum) {
-      localStorage.setItem('rollsRecord', rollsCount)
-    } else {
-      const rollsRecordNum = localStorage.getItem('rollsRecord')
-      setRollsRecord(rollsRecordNum)
+    if (tenzies) {
+      if(!recordStore || rollsCount < recordStore) {
+        localStorage.setItem("rollsRecord", rollsCount.toString())
+      }
+      // recordStore = localStorage.getItem('rollsRecord')
+      setRollsRecord(localStorage.getItem('rollsRecord'))
     }
-  }, [tenzies, rollsCount])
+  }, [tenzies, recordStore, rollsCount])
 
   useEffect(() => {
     const firstValue = dice[0].value
@@ -129,7 +131,7 @@ export default function App() {
           Number of Rolls:
           <span className='rolls--num'> {rollsCount} </span>
         </p>
-        <p className='rolls--record'>RECORD:
+        <p className='rolls--record'>Your Record:
           <span className='rolls--rec'> {rollsRecord} </span>
         </p>
       </div>
