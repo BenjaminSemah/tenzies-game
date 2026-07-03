@@ -44,15 +44,15 @@ To get a local copy up and running follow these simple example steps.
 ### Clone this repository
 
 ```bash
-$ git@github.com:BenjaminSemah/tenzies-game.git
+$ git clone git@github.com:BenjaminSemah/tenzies-game.git
 $ cd tenzies-game
 ```
 ### Run project
 
 ```bash
 $ npm install
-$ npm build
-$ npm start
+$ npm run build
+$ npm run start
 ```
 
 ### Open page in browser
